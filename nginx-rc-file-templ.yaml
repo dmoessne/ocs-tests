@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-pod-file-<nu>
+spec:
+  replicas: 1  
+  selector:    
+    name: nginx-pod-file-<nu>
+  securityContext:
+    privileged: true
+  template:    
+    metadata:
+      labels:  
+        name: nginx-pod-file-<nu>
+    spec: 
+      containers: 
+       - image: "gcr.io/google_containers/nginx-slim:0.8"
+         name: nginx-pod-file-<nu>
+         ports: 
+           - containerPort: 80
+             name: web-file-<nu>
+         volumeMounts: 
+           - mountPath: /usr/share/nginx/html
+             name: glusterfs-file-<nu>
+      volumes: 
+        - name: glusterfs-file-<nu>
+          persistentVolumeClaim:
+            claimName: glusterfs-file-<nu>
+
